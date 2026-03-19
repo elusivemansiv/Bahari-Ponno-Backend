@@ -1,0 +1,10 @@
+Django>=4.2,<6.1
+gunicorn
+psycopg2-binary
+dj-database-url
+whitenoise
+pillow
+python-dotenv
+django-jet-reboot
+djangorestframework
+django-cors-headers
