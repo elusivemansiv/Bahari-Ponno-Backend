@@ -12,10 +12,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-kht%m#0a5_a1x8v$0=&uv
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost 127.0.0.1 *.up.railway.app').split()
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost 127.0.0.1 .up.railway.app bincoecom.up.railway.app bincoecom.stradigtech.com').split()
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.up.railway.app',
+    'https://bincoecom.up.railway.app',
+    'https://bincoecom.stradigtech.com',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
 ]
