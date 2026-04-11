@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath bincoecom bincoecom.wsgi
+web: gunicorn --pythonpath bahariponno bahariponno.wsgi
