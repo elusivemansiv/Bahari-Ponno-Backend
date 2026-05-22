@@ -1,0 +1,43 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {% if site_settings %}{{ site_settings.site_name }}{% else %}Bahari Ponno{% endif %} Admin{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="icon" href="{% if site_settings and site_settings.favicon %}{{ site_settings.favicon.url }}{% else %}{% static 'images/favicon.jpg' %}{% endif %}">
+<style>
+    .branding-logo {
+        height: 32px;
+        width: 32px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1.5px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .branding-logo:hover {
+        transform: rotate(6deg) scale(1.08);
+    }
+    #branding h1 a {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+    }
+    .branding-title {
+        font-family: 'Outfit', sans-serif !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.01em !important;
+    }
+</style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        <img src="{% if site_settings and site_settings.logo %}{{ site_settings.logo.url }}{% else %}{% static 'images/logo.jpg' %}{% endif %}" alt="{% if site_settings %}{{ site_settings.site_name }}{% else %}Bahari Ponno{% endif %} Logo" class="branding-logo">
+        <span class="branding-title">{% if site_settings %}{{ site_settings.site_name }}{% else %}Bahari Ponno{% endif %}</span>
+    </a>
+</h1>
+{% endblock %}

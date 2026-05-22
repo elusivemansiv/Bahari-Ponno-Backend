@@ -12,12 +12,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-kht%m#0a5_a1x8v$0=&uv
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost 127.0.0.1 .up.railway.app bahariponno.up.railway.app bahariponno.stradigtech.com').split()
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost 127.0.0.1 .up.railway.app bahariponno.up.railway.app bahariponno.stradigtech.com admin.bahariponno.stradigtech.com').split()
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.up.railway.app',
     'https://bahariponno.up.railway.app',
     'https://bahariponno.stradigtech.com',
+    'https://admin.bahariponno.stradigtech.com',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
 ]
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'bahariponno.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,6 +70,8 @@ TEMPLATES = [
                 'store.context_processors.cart_count',
                 'store.context_processors.categories',
                 'store.context_processors.shipping_config',
+                'store.context_processors.admin_dashboard_stats',
+                'store.context_processors.site_settings',
             ],
         },
     },
@@ -124,7 +127,7 @@ if not DEBUG:
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'dashboard'
-LOGOUT_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = '/admin/'
 
 # Django JET Configuration
 JET_DEFAULT_THEME = 'default'

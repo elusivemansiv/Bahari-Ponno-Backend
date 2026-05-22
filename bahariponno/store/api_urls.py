@@ -2,7 +2,7 @@ from rest_framework.routers import DefaultRouter
 from .api_views import (
     ProductViewSet, CategoryViewSet, CartViewSet, OrderViewSet,
     HomeSliderViewSet, PromotionCardViewSet, ShippingConfigViewSet,
-    ColorViewSet, QuantityViewSet
+    ColorViewSet, QuantityViewSet, SiteSettingViewSet
 )
 
 router = DefaultRouter()
@@ -15,5 +15,6 @@ router.register(r'orders', OrderViewSet, basename='api-orders')
 router.register(r'sliders', HomeSliderViewSet, basename='api-sliders')
 router.register(r'promotions', PromotionCardViewSet, basename='api-promotions')
 router.register(r'shipping-config', ShippingConfigViewSet, basename='api-shipping-config')
+router.register(r'site-settings', SiteSettingViewSet, basename='api-site-settings')
 
 urlpatterns = router.urls

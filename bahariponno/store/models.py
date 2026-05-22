@@ -323,7 +323,10 @@ class OrderItem(models.Model):
 
     @property
     def subtotal(self):
-        return self.price * self.quantity
+        if self.price is None:
+            from decimal import Decimal
+            return Decimal('0.00')
+        return self.price * (self.quantity or 1)
 
     @property
     def selected_image(self):
@@ -344,7 +347,7 @@ class Wishlist(models.Model):
 
 
 class HomeSlider(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, blank=True, null=True)
     subtitle = models.CharField(max_length=500, blank=True)
     image = models.ImageField(upload_to='sliders/')
     link_url = models.CharField(max_length=500, default='/')
@@ -356,7 +359,7 @@ class HomeSlider(models.Model):
         ordering = ['order', '-created_at']
 
     def __str__(self):
-        return self.title
+        return self.title or f"Slider #{self.id or ''}"
 
 
 class ShippingConfig(models.Model):
@@ -399,3 +402,27 @@ class PromotionCard(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class SiteSetting(models.Model):
+    site_name = models.CharField(max_length=200, default="Bahari Ponno")
+    logo = models.ImageField(upload_to='branding/', blank=True, null=True)
+    favicon = models.ImageField(upload_to='branding/', blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Site Settings'
+        verbose_name_plural = 'Site Settings'
+
+    def save(self, *args, **kwargs):
+        if not self.pk and SiteSetting.objects.exists():
+            return
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def get_setting(cls):
+        setting, created = cls.objects.get_or_create(id=1)
+        return setting
+
+    def __str__(self):
+        return self.site_name

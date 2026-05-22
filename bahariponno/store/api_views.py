@@ -8,12 +8,12 @@ from django.utils import timezone
 from datetime import timedelta
 from .models import (
     Product, Category, Color, Size, Cart, CartItem, Order, OrderItem, 
-    HomeSlider, PromotionCard, ShippingConfig, ProductVariation, ProductImage
+    HomeSlider, PromotionCard, ShippingConfig, ProductVariation, ProductImage, SiteSetting
 )
 from .serializers import (
     ProductSerializer, CategorySerializer, ColorSerializer, QuantitySerializer,
     CartSerializer, CartItemSerializer, OrderSerializer, HomeSliderSerializer,
-    PromotionCardSerializer, ShippingConfigSerializer
+    PromotionCardSerializer, ShippingConfigSerializer, SiteSettingSerializer
 )
 
 
@@ -253,3 +253,15 @@ class QuantityViewSet(viewsets.ModelViewSet):
     queryset = Size.objects.all()
     serializer_class = QuantitySerializer
     permission_classes = [permissions.AllowAny]
+
+
+class SiteSettingViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = SiteSetting.objects.all()
+    serializer_class = SiteSettingSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def list(self, request, *args, **kwargs):
+        setting = SiteSetting.get_setting()
+        serializer = self.get_serializer(setting)
+        return Response(serializer.data)
+

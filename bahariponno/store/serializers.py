@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import (
     Product, Category, Color, Size, ProductVariation, ProductImage, 
-    ProductReview, Cart, CartItem, Order, OrderItem, HomeSlider, PromotionCard, ShippingConfig
+    ProductReview, Cart, CartItem, Order, OrderItem, HomeSlider, PromotionCard, ShippingConfig, SiteSetting
 )
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -227,3 +227,10 @@ class ShippingConfigSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShippingConfig
         fields = '__all__'
+
+
+class SiteSettingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SiteSetting
+        fields = '__all__'
+
